@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParamWithValueList xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <version>20080502</version>
+  <parameterTypes>
+    <ParamType>
+      <typeName>Inventor</typeName>
+      <typeCode>0</typeCode>
+    </ParamType>
+    <ParamType>
+      <typeName>String</typeName>
+      <typeCode>1</typeCode>
+    </ParamType>
+    <ParamType>
+      <typeName>Boolean</typeName>
+      <typeCode>2</typeCode>
+    </ParamType>
+  </parameterTypes>
+  <parameters>
+    <ParamWithValue>
+      <name>d1</name>
+      <typeCode>in</typeCode>
+      <value>signW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d2</name>
+      <typeCode>in</typeCode>
+      <value>signH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>ply4x8d</name>
+      <typeCode>in</typeCode>
+      <value>0.75 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d3</name>
+      <typeCode>deg</typeCode>
+      <value>0.0 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d4</name>
+      <typeCode>in</typeCode>
+      <value>litH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>litH</name>
+      <typeCode>in</typeCode>
+      <value>58 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>lineSpacing</name>
+      <typeCode>in</typeCode>
+      <value>2 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d6</name>
+      <typeCode>in</typeCode>
+      <value>lineSpacing / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>borderW</name>
+      <typeCode>in</typeCode>
+      <value>2.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>pathEndMillD</name>
+      <typeCode>in</typeCode>
+      <value>0.375 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>signW</name>
+      <typeCode>in</typeCode>
+      <value>( ply4x8w - pathEndMillD ) / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d7</name>
+      <typeCode>in</typeCode>
+      <value>( signW - 9 ul * lineSpacing ) / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d9</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>pathW</name>
+      <typeCode>in</typeCode>
+      <value>0.48 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d10</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d18</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d19</name>
+      <typeCode>in</typeCode>
+      <value>2.5 in + 1.25 in + 1 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d20</name>
+      <typeCode>in</typeCode>
+      <value>signH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>ply4x8w</name>
+      <typeCode>in</typeCode>
+      <value>48 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>signH</name>
+      <typeCode>in</typeCode>
+      <value>96 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d21</name>
+      <typeCode>in</typeCode>
+      <value>signW - borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d22</name>
+      <typeCode>in</typeCode>
+      <value>litH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d23</name>
+      <typeCode>in</typeCode>
+      <value>2 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d25</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d26</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d29</name>
+      <typeCode>in</typeCode>
+      <value>lineSpacing</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>maxFontH</name>
+      <typeCode>in</typeCode>
+      <value>litH - 2"</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>ePocketH</name>
+      <typeCode>in</typeCode>
+      <value>2.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d32</name>
+      <typeCode>in</typeCode>
+      <value>ePocketH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>litHClearanceH</name>
+      <typeCode>in</typeCode>
+      <value>lineSpacing / 2 ul + pathW / 2 ul + 0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d33</name>
+      <typeCode>in</typeCode>
+      <value>litHClearanceH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>minBendR</name>
+      <typeCode>in</typeCode>
+      <value>1.0 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d38</name>
+      <typeCode>in</typeCode>
+      <value>33.250 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d41</name>
+      <typeCode>in</typeCode>
+      <value>litH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d42</name>
+      <typeCode>in</typeCode>
+      <value>2 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d43</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d44</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d45</name>
+      <typeCode>in</typeCode>
+      <value>d47</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d47</name>
+      <typeCode>in</typeCode>
+      <value>2 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d49</name>
+      <typeCode>in</typeCode>
+      <value>litH</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d50</name>
+      <typeCode>in</typeCode>
+      <value>2 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d51</name>
+      <typeCode>in</typeCode>
+      <value>d50 / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d52</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d53</name>
+      <typeCode>in</typeCode>
+      <value>pathW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d73</name>
+      <typeCode>in</typeCode>
+      <value>0.55 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d74</name>
+      <typeCode>in</typeCode>
+      <value>0.47 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d75</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d76</name>
+      <typeCode>in</typeCode>
+      <value>0.58 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d80</name>
+      <typeCode>in</typeCode>
+      <value>0.48 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d88</name>
+      <typeCode>in</typeCode>
+      <value>0.250 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d89</name>
+      <typeCode>in</typeCode>
+      <value>2.5 in + 1.25 in + 1 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d90</name>
+      <typeCode>in</typeCode>
+      <value>2.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d91</name>
+      <typeCode>in</typeCode>
+      <value>0.75 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d92</name>
+      <typeCode>in</typeCode>
+      <value>1 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d93</name>
+      <typeCode>in</typeCode>
+      <value>0.1 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d94</name>
+      <typeCode>in</typeCode>
+      <value>0.25 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d95</name>
+      <typeCode>in</typeCode>
+      <value>0.500 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d96</name>
+      <typeCode>in</typeCode>
+      <value>0.25 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d97</name>
+      <typeCode>in</typeCode>
+      <value>0.205 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d98</name>
+      <typeCode>in</typeCode>
+      <value>0 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d99</name>
+      <typeCode>in</typeCode>
+      <value>0.500 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d100</name>
+      <typeCode>in</typeCode>
+      <value>0.75 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d102</name>
+      <typeCode>in</typeCode>
+      <value>1.375 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d105</name>
+      <typeCode>in</typeCode>
+      <value>5 in / 16 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d109</name>
+      <typeCode>in</typeCode>
+      <value>1.3 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d110</name>
+      <typeCode>in</typeCode>
+      <value>1 3/8"</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d111</name>
+      <typeCode>in</typeCode>
+      <value>d110</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d112</name>
+      <typeCode>in</typeCode>
+      <value>0.75 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d113</name>
+      <typeCode>in</typeCode>
+      <value>d114</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d114</name>
+      <typeCode>in</typeCode>
+      <value>2.5 in - 0.75 in / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d115</name>
+      <typeCode>in</typeCode>
+      <value>d110</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d116</name>
+      <typeCode>in</typeCode>
+      <value>d110</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d117</name>
+      <typeCode>in</typeCode>
+      <value>d112</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d119</name>
+      <typeCode>in</typeCode>
+      <value>5 in / 16 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d121</name>
+      <typeCode>in</typeCode>
+      <value>0.75 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d122</name>
+      <typeCode>in</typeCode>
+      <value>0.25 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d126</name>
+      <typeCode>in</typeCode>
+      <value>2.5 in + 0.75 in / 2 ul - 0.175 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d127</name>
+      <typeCode>in</typeCode>
+      <value>1.75 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d129</name>
+      <typeCode>in</typeCode>
+      <value>2.25 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d130</name>
+      <typeCode>in</typeCode>
+      <value>0.1875 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d133</name>
+      <typeCode>deg</typeCode>
+      <value>0.0 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d138</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>outlineCOffset</name>
+      <typeCode>in</typeCode>
+      <value>0.25 in + sRopeChannel / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d139</name>
+      <typeCode>in</typeCode>
+      <value>outlineCOffset</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d140</name>
+      <typeCode>in</typeCode>
+      <value>d139</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d141</name>
+      <typeCode>in</typeCode>
+      <value>outlineCOffset</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d142</name>
+      <typeCode>deg</typeCode>
+      <value>165 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d144</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d145</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d146</name>
+      <typeCode>in</typeCode>
+      <value>d144</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d147</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d148</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in + sRopeChannel / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d149</name>
+      <typeCode>in</typeCode>
+      <value>d148</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d150</name>
+      <typeCode>in</typeCode>
+      <value>d148</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d151</name>
+      <typeCode>in</typeCode>
+      <value>borderW + 1 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d152</name>
+      <typeCode>in</typeCode>
+      <value>16 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>sRopeChannel</name>
+      <typeCode>in</typeCode>
+      <value>0.32 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>sRopeDepth</name>
+      <typeCode>in</typeCode>
+      <value>0.43 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d154</name>
+      <typeCode>in</typeCode>
+      <value>0.750 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d155</name>
+      <typeCode>in</typeCode>
+      <value>0.750 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d156</name>
+      <typeCode>in</typeCode>
+      <value>sRopeChannel / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d157</name>
+      <typeCode>in</typeCode>
+      <value>sRopeChannel</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>sRopeBendR</name>
+      <typeCode>in</typeCode>
+      <value>0.75 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d158</name>
+      <typeCode>in</typeCode>
+      <value>sRopeBendR</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d159</name>
+      <typeCode>in</typeCode>
+      <value>sRopeChannel / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d160</name>
+      <typeCode>in</typeCode>
+      <value>sRopeChannel</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d161</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d162</name>
+      <typeCode>in</typeCode>
+      <value>borderW / 2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d163</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d164</name>
+      <typeCode>in</typeCode>
+      <value>8 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d165</name>
+      <typeCode>in</typeCode>
+      <value>borderW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d166</name>
+      <typeCode>in</typeCode>
+      <value>14.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d167</name>
+      <typeCode>in</typeCode>
+      <value>pathW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d168</name>
+      <typeCode>in</typeCode>
+      <value>minBendR</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d169</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d170</name>
+      <typeCode>deg</typeCode>
+      <value>0.0 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d171</name>
+      <typeCode>in</typeCode>
+      <value>pathW</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d172</name>
+      <typeCode>deg</typeCode>
+      <value>165 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d173</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d174</name>
+      <typeCode>ul</typeCode>
+      <value>7 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d176</name>
+      <typeCode>in</typeCode>
+      <value>2.0 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d181</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d182</name>
+      <typeCode>ul</typeCode>
+      <value>2 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d184</name>
+      <typeCode>in</typeCode>
+      <value>16.0 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d189</name>
+      <typeCode>in</typeCode>
+      <value>4 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d190</name>
+      <typeCode>in</typeCode>
+      <value>sRopeBendR</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d191</name>
+      <typeCode>in</typeCode>
+      <value>sRopeChannel</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d192</name>
+      <typeCode>in</typeCode>
+      <value>sRopeChannel</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d193</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d194</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d195</name>
+      <typeCode>deg</typeCode>
+      <value>0.0 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d196</name>
+      <typeCode>in</typeCode>
+      <value>0.5 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d197</name>
+      <typeCode>deg</typeCode>
+      <value>0.0 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d198</name>
+      <typeCode>in</typeCode>
+      <value>92.000 in</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+  </parameters>
+</ParamWithValueList>
