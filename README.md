@@ -21,5 +21,7 @@ Documented in the code
 ## Physical sign design files
 
 Design (Illustrator)
+
 Modeling / CAD (Autodesk Inventor)
+
 CNC GCode: Vector / ShopBot
