@@ -18,6 +18,9 @@ ATMega328P (5V, 16 MHz)
 
 Documented in the code
 
+All 5 signs are connectted in parallel on a 10-conductor ribbon cable.
+One line controls the servo that changes the fourth sign from  WOW to NOW
+
 ## Physical sign design files
 
 Design (Illustrator)
