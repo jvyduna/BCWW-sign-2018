@@ -63,7 +63,7 @@ void setupFunctions() {
 
   baoNowAnimations[0] = baoNowAnim0;  baoNowAnimations[1] = baoNowAnim1;  baoNowAnimations[2] = baoNowAnim2;
   baoNowAnimations[3] = baoNowAnim3;  baoNowAnimations[4] = baoNowAnim4;  baoNowAnimations[5] = baoNowAnim5;
-  baoNowAnimations[6] - baoNowAnim6;  baoNowAnimations[7] = baoNowAnim7;
+  baoNowAnimations[6] = baoNowAnim6;  baoNowAnimations[7] = baoNowAnim7;
 }
 
 
@@ -84,7 +84,7 @@ void setup() {
   }
   pinMode(baoNowModePin, INPUT_PULLUP);
   nwServo.attach(servoPin, 700, 2300);
-  
+
   setTimeAndAlarms();
   setupFunctions();
   setTempo(50);
@@ -132,14 +132,14 @@ void switchBasedOnMode() {
     setAllOff(); d(10000);
     break;
   }
-  case Night: {      
+  case Night: {
     // Play a random animation, don't repeat until all have been used
     DEBUG_PRINTLN("Resetting used animations vector")
-    unsigned long animsUsed = pow(2,NUMBER_OF_ANIMATIONS) - 1; 
+    unsigned long animsUsed = pow(2,NUMBER_OF_ANIMATIONS) - 1;
     while (animsUsed > 0) {
       byte currentAnim = random(NUMBER_OF_ANIMATIONS);
       if (bitRead(animsUsed,currentAnim)) {
-        #ifdef DEBUG 
+        #ifdef DEBUG
           Serial.print("Remaining Night animation vector: ");
           Serial.println(animsUsed, BIN);
           Serial.println("Starting Night anim: " + String(currentAnim));
@@ -147,7 +147,7 @@ void switchBasedOnMode() {
         animations[currentAnim]();
         bitClear(animsUsed,currentAnim);
       }
-    }   
+    }
     break;
   } // case Night
   } // end switch
@@ -157,11 +157,11 @@ void switchBasedOnMode() {
 void runBaoNowAnims() {
   // Play a random animation, don't repeat until all have been used
   DEBUG_PRINTLN("Resetting used BaoNow animations vector")
-  unsigned long BNAnimsUsed = pow(2,NUMBER_OF_BAONOW_ANIMATIONS) - 1; 
+  unsigned long BNAnimsUsed = pow(2,NUMBER_OF_BAONOW_ANIMATIONS) - 1;
   while (BNAnimsUsed > 0) {
     byte currentAnim = random(NUMBER_OF_BAONOW_ANIMATIONS);
     if (bitRead(BNAnimsUsed,currentAnim)) { // Prevent random repeats until all consumed
-      #ifdef DEBUG 
+      #ifdef DEBUG
         Serial.print("Remaining BaoNow animation vector: ");
         Serial.println(BNAnimsUsed, BIN);
         Serial.println("Starting BaoNow anim: " + String(currentAnim));
@@ -228,7 +228,7 @@ void anim4() { // Med sequence with space
     setMessage(____W); d1_2(); setAllOff(); d1_2();
   }
 }
-void anim5() { // Medium build 
+void anim5() { // Medium build
   for (int i=0; i<4; i++) {
     setMessage(_B___); d1_2();
     setMessage(_BC__); d1_2();
@@ -261,7 +261,7 @@ void anim7() {
         case 3: setMessage(____W); break;
       }
       d1_4();
-    } 
+    }
   }
   setTempo(_bpm);
 }
@@ -306,7 +306,7 @@ void anim10() { // Bao Bao..... chicka chicakaaahhhhh
   setMessage(_B___); d1_2(); setAllOff(); d1_4();
   d2(); d4(); d4(); d2(); d1_2();
   setMessage(__C__); d1_4(); setAllOff(); d1_4();
-  setMessage(__C__); d1(); 
+  setMessage(__C__); d1();
   setMessage(_B___); d1_2(); setAllOff(); d1_2();
   setMessage(_B___); d1_2(); setAllOff(); d1_2();
   d4();
@@ -316,35 +316,35 @@ void anim11() { // FlickerCandy
   d4();
   int _bpm = bpm;
 
-  for (int i=0; i<7; i++) { 
+  for (int i=0; i<7; i++) {
     setMessage(BAO); d(20+random(100*i));
     setAllOff(); d(random(50+300/i));
   }
-  setMessage(BAO); d(2000); 
-  
-  for (int i=0; i<7; i++) { 
+  setMessage(BAO); d(2000);
+
+  for (int i=0; i<7; i++) {
     setMessage(BAO); d(20+random(100));
     setAllOff(); d(random(50+200/i));
     setMessage(CHICKA); d(20+random(100));
   }
   setMessage(CHICKA); d(1200);
-  
-  for (int i=0; i<11; i++) { 
+
+  for (int i=0; i<11; i++) {
     setMessage(CHICKA); d(20+random(100));
     setAllOff(); d(random(100));
     setMessage(WOW1); d(20+random(100));
     setAllOff(); d(random(75));
   }
   setMessage(WOW1); d(900);
-  
-  for (int i=0; i<17; i++) { 
+
+  for (int i=0; i<17; i++) {
     setMessage(WOW1); d(20+random(200));
     setAllOff(); d(random(100));
     setMessage(WOW2); d(20+random(i*5));
     setAllOff(); d(random(75));
   }
   setMessage(WOW2); d(3000);
-  
+
   setAllOff();
 }
 
@@ -550,7 +550,7 @@ void baoNowAnim5() { // Freestyle MC. A Rap.
   on_off(HOT_NOW, b1);
   on_off(HOT_NOW, b1);
 
-  
+
   setTempo(_bpm);
 }
 
@@ -584,7 +584,7 @@ void baoNowAnim7() { // Flickers
   flickerOn(HOT); flickerOn(HOT); d1(); flickerOn(HOT); flickerOff(HOT); d1();
   flickerOn(BAO); flickerOn(BAO); flickerOff(BAO); flickerOn(HOT); flickerOn(BAO); flickerOff(HOT); d1_2(); flickerOff(BAO); d1();
   flickerOn(BAO); flickerOn(NOW); d1_4(); flickerOff(BAO); flickerOn(NOW); flickerOff(BAO); flickerOn(NOW); d1(); flickerOff(NOW); d2();
-  
+
   setTempo(_bpm);
 }
 
@@ -596,7 +596,7 @@ void baoNowAnim7() { // Flickers
 
 /* Takes a symbol that is a binary vector representation of the state of the 5 signs
      folowwed by the LSB that signifies if sign 4's realy should be in the "N" ("NOW") position
-     So, "___ BAO CHICKA WOW WOW" = BCWW = B011110 
+     So, "___ BAO CHICKA WOW WOW" = BCWW = B011110
 */
 void setMessage(byte message) {
   // Only think about swapping sign4's position if it's going to be illuminated
@@ -607,9 +607,9 @@ void setMessage(byte message) {
   #ifdef DEBUG
   // Serial.print("SetMessage: "); Serial.println(message,BIN);
   #endif
-  
+
   message >>= 1; // Get ast N/W bit and into the on/off bits
-  
+
   for (byte i = 0; i < numRelays; i++) {
     setSign(numRelays-1-i, bitRead(message >> i,0));
   }
@@ -681,7 +681,7 @@ void setTimeAndAlarms() {
   rtc.begin();
   // rtc.autoTime(); // Wasn't working: Usually off by 30 minutes and several days. Weird.
   // e.g. 7:32:16 | Monday October 31, 2016:
-  // rtc.setTime(16, 32, 7, 2, 31, 10, 16); 
+  // rtc.setTime(16, 32, 7, 2, 31, 10, 16);
   // rtc.set24Hour();
   // Arguments to calibrate (set) the Real Time Clocl are rtc.setTime(ms, sec, min, hour, day, month, 2-digit year)
   // rtc.setTime(00, 35, 20, 7, 18, 8, 18);  // Uncomment if RTC needs to be reset
@@ -723,7 +723,7 @@ void startupDiagnostic() {
   setMessage(_BCWW); d1();
   setAllOff();
 }
- 
+
 
 
 // RTC Print
@@ -738,16 +738,16 @@ void printTime() {
     if (rtc.second() < 10)
       Serial.print('0'); // Print leading '0' for second
     Serial.print(String(rtc.second())); // Print second
-  
+
     if (rtc.is12Hour()) // If we're in 12-hour mode
     {
       // Use rtc.pm() to read the AM/PM state of the hour
       if (rtc.pm()) Serial.print(" PM"); // Returns true if PM
       else Serial.print(" AM");
     }
-    
+
     Serial.print(" | ");
-  
+
     // Few options for printing the day, pick one:
     Serial.print(rtc.dayStr()); // Print day string
     //Serial.print(rtc.dayC()); // Print day character
