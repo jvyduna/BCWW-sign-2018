@@ -115,7 +115,11 @@ void d8()   { delay(b8); }
 void setup() {
   #ifdef DEBUG
     Serial.begin(57600);  // For debug print statements over serial port
-    Serial.println("\n\nSetup starting");
+    for (int i = 0; i < 10; i++) {
+      if (Serial) break;
+      delay(1000);
+    }
+    Serial.println("BCWW Neon Sign v2.0");
   #endif
 
   for (int pin = firstRelayPin; pin < firstRelayPin + numRelays; pin++) {
