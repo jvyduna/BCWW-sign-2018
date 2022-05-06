@@ -1,5 +1,5 @@
 /*
-  Bao Sign 2018
+  Bao Sign 2022
 
   Author: Jeff Vyduna
   Contact: web@jeffvyduna.com
@@ -21,16 +21,10 @@
 
 */
 
-// #define DEBUG                   // Debugging print utilities. Takes a lot of memory. Comment this line for "production"
-// #define TEST_MODE               // Go faster to the routines of interest. Comment this line for "production"
+#define DEBUG                   // Debugging print utilities. Takes a lot of memory. Comment this line for "production"
 #include "DebugUtils.h"
 #include "SignMessages.h"       // Defines symbols like _BCWW and BAO_CHICKA_WOW_WOW
 #include <Servo.h>              // Servo PWM control.
-#include <Wire.h>               // I2C for RTC
-#include <Time.h>               // Used by TimeAlarms.h
-#include <TimeAlarms.h>         // Switch mode at specific times of day
-#include <SparkFunDS1307RTC.h>  // Real Time Clock lib
-
 
 // Hardware config
 const byte firstRelayPin = 2;   // Relay for HOT; +1 = BAO, etc
@@ -49,24 +43,69 @@ Servo nwServo;
 unsigned int bpm;
 unsigned long beatPeriod;                // Tempo (BPM) = 1000/beatPeriod*60
 unsigned int b1_2, b1_4, b3_4, b1_8, b1, b2, b4, b8;   // BeatPeriod */ factors
-enum modes {BaoNow, Day, Night} mode;
+boolean baoNowMode;
+
+void startupDiagnostic();
+void setTempo(unsigned int _bpm);
+void setAllOff();
+void runBaoNowAnims();
+void runRegularAnims();
+void flickerOn(byte message);
+void flickerOff(byte message);
+void setMessage(byte message);
+void setSign(int signIndex, boolean state);
+void sign4toW();
+void sign4toN();
+void sign4toNSlow();
+void on_off(byte message, int period);
 
 // Setup arrays of functions so we can call a random function via random index
 #define NUMBER_OF_ANIMATIONS 12           // highest animX() + 1
 void (*animations[NUMBER_OF_ANIMATIONS])();
 #define NUMBER_OF_BAONOW_ANIMATIONS 8    // highest baoNowAnimX() + 1
 void (*baoNowAnimations[NUMBER_OF_BAONOW_ANIMATIONS])();
+void anim0();
+void anim1();
+void anim2();
+void anim3();
+void anim4();
+void anim5();
+void anim6();
+void anim7();
+void anim8();
+void anim9();
+void anim10();
+void anim11();
+void baoNowAnim0();
+void baoNowAnim1();
+void baoNowAnim2();
+void baoNowAnim3();
+void baoNowAnim4();
+void baoNowAnim5();
+void baoNowAnim6();
+void baoNowAnim7();
+void baoNowAnim2helper1();
+void baoNowAnim4helper();
 void setupFunctions() {
   animations[0] = anim0;  animations[1] = anim1;  animations[2] = anim2;  animations[3] = anim3;
   animations[4] = anim4;  animations[5] = anim5;  animations[6] = anim6;  animations[7] = anim7;
   animations[8] = anim8;  animations[9] = anim9;  animations[10] = anim10; animations[11] = anim11;
 
-  baoNowAnimations[0] = baoNowAnim0;  baoNowAnimations[1] = baoNowAnim1;  baoNowAnimations[2] = baoNowAnim2;
-  baoNowAnimations[3] = baoNowAnim3;  baoNowAnimations[4] = baoNowAnim4;  baoNowAnimations[5] = baoNowAnim5;
-  baoNowAnimations[6] = baoNowAnim6;  baoNowAnimations[7] = baoNowAnim7;
+baoNowAnimations[0] = baoNowAnim0;  baoNowAnimations[1] = baoNowAnim1;  baoNowAnimations[2] = baoNowAnim2;
+baoNowAnimations[3] = baoNowAnim3;  baoNowAnimations[4] = baoNowAnim4;  baoNowAnimations[5] = baoNowAnim5;
+baoNowAnimations[6] = baoNowAnim6;  baoNowAnimations[7] = baoNowAnim7;
 }
 
 
+void d(int ms) { delay(ms); }
+void d1()   { delay(beatPeriod); }
+void d1_2() { delay(b1_2); }
+void d1_4() { delay(b1_4); }
+void d3_4() { delay(b3_4); }
+void d1_8() { delay(b1_8); }
+void d2()   { delay(b2); }
+void d4()   { delay(b4); }
+void d8()   { delay(b8); }
 
 
 /////////////////////////////////
@@ -76,7 +115,11 @@ void setupFunctions() {
 void setup() {
   #ifdef DEBUG
     Serial.begin(57600);  // For debug print statements over serial port
-    Serial.println("\n\nSetup starting");
+    for (int i = 0; i < 10; i++) {
+      if (Serial) break;
+      delay(1000);
+    }
+    Serial.println("BCWW Neon Sign v2.0");
   #endif
 
   for (int pin = firstRelayPin; pin < firstRelayPin + numRelays; pin++) {
@@ -85,21 +128,12 @@ void setup() {
   pinMode(baoNowModePin, INPUT_PULLUP);
   nwServo.attach(servoPin, 700, 2300);
 
-  setTimeAndAlarms();
   setupFunctions();
   setTempo(50);
-  #ifndef TEST_MODE
-    for (int i=0; i<20; i++) { // Blink the onboard: Setup phase is done. We're not in Test mode.
-      digitalWrite(13, !digitalRead(13));
-      d(50);
-    }
-  #endif
   startupDiagnostic();
-  printTime();
+  randomSeed(analogRead(0));  // Different seed value each time
   DEBUG_PRINTLN("Setup complete\n");
 }
-
-
 
 
 /////////////////////////////////
@@ -108,49 +142,35 @@ void setup() {
 
 void loop() {
   setTempo(50);
-  randomSeed(analogRead(0));  // Different seed value each time
-
-  #ifdef TEST_MODE
-    DEBUG_PRINTLN("Looping in test mode");
-    // baoNowAnim7();
-  #else
-    // manual override Bao Now mode pin
-    if (digitalRead(baoNowModePin) == LOW) {
-      DEBUG_PRINTLN("Manual BaoNow mode button detected.");
-      runBaoNowAnims();
-    } else switchBasedOnMode();
-  #endif
+  if (digitalRead(baoNowModePin) == LOW) {
+    DEBUG_PRINTLN("Manual BaoNow mode button detected.");
+    runBaoNowAnims();
+  } else {
+    runRegularAnims();
+  }
 }
 
-void switchBasedOnMode() {
-  switch(mode) {
-  case BaoNow: {
-    runBaoNowAnims();
-    break;
-  }
-  case Day: {
-    setAllOff(); d(10000);
-    break;
-  }
-  case Night: {
-    // Play a random animation, don't repeat until all have been used
-    DEBUG_PRINTLN("Resetting used animations vector")
-    unsigned long animsUsed = pow(2,NUMBER_OF_ANIMATIONS) - 1;
-    while (animsUsed > 0) {
-      byte currentAnim = random(NUMBER_OF_ANIMATIONS);
-      if (bitRead(animsUsed,currentAnim)) {
-        #ifdef DEBUG
-          Serial.print("Remaining Night animation vector: ");
-          Serial.println(animsUsed, BIN);
-          Serial.println("Starting Night anim: " + String(currentAnim));
-        #endif
-        animations[currentAnim]();
-        bitClear(animsUsed,currentAnim);
-      }
+void runRegularAnims() {
+  // Play a random animation, don't repeat until all have been used
+  DEBUG_PRINTLN("Resetting used animations vector")
+  unsigned long animsUsed = pow(2,NUMBER_OF_ANIMATIONS) - 1;
+  while (animsUsed > 0) {
+    if (digitalRead(baoNowModePin) == LOW) {
+      DEBUG_PRINTLN("Stopping to switch to Bao Now mode.");
+      return;
     }
-    break;
-  } // case Night
-  } // end switch
+    byte currentAnim = random(NUMBER_OF_ANIMATIONS);
+    if (bitRead(animsUsed,currentAnim)) {
+      #ifdef DEBUG
+        Serial.print("Remaining Regular animation vector: ");
+        Serial.println(animsUsed, BIN);
+        Serial.print("Starting Regular anim: ");
+        Serial.println(currentAnim);
+      #endif
+      animations[currentAnim]();
+      bitClear(animsUsed,currentAnim);
+    }
+  }
 }
 
 
@@ -159,12 +179,17 @@ void runBaoNowAnims() {
   DEBUG_PRINTLN("Resetting used BaoNow animations vector")
   unsigned long BNAnimsUsed = pow(2,NUMBER_OF_BAONOW_ANIMATIONS) - 1;
   while (BNAnimsUsed > 0) {
+    if (digitalRead(baoNowModePin) != LOW) {
+      DEBUG_PRINTLN("Stopping to switch to Regular mode.");
+      return;
+    }
     byte currentAnim = random(NUMBER_OF_BAONOW_ANIMATIONS);
     if (bitRead(BNAnimsUsed,currentAnim)) { // Prevent random repeats until all consumed
       #ifdef DEBUG
         Serial.print("Remaining BaoNow animation vector: ");
         Serial.println(BNAnimsUsed, BIN);
-        Serial.println("Starting BaoNow anim: " + String(currentAnim));
+        Serial.print("Starting BaoNow anim: ");
+        Serial.println(currentAnim);
       #endif
       baoNowAnimations[currentAnim]();
       bitClear(BNAnimsUsed,currentAnim);
@@ -186,14 +211,14 @@ void anim0() {  // Flicker on, On for 4 beats, flicker off
 void flickerOn(byte message) {
   for (int i=0; i<6; i++) { // Flicker on
     setMessage(message); d(20+random(50));
-    setAllOff(); d(random(200/i));
+    setAllOff(); d(random(200/(i+1)));
   }
   setMessage(message);
 }
 void flickerOff(byte message) {
   for (int i=0; i<4; i++) { // Flicker off
-    setMessage(message); d(random(200/i));
-    setAllOff(); d(random(100*i));
+    setMessage(message); d(random(200/(i+1)));
+    setAllOff(); d(random(100*(i+1)));
   }
 }
 
@@ -265,11 +290,13 @@ void anim7() {
   }
   setTempo(_bpm);
 }
-// Flip randomly from prior state
+// Flip randomly
 void anim8() {
+  boolean states[numRelays] = { 0, };
   for (int i=0; i<30+random(30); i++) {
     byte pinToFlip = firstRelayPin + random(4);
-    digitalWrite(pinToFlip, !digitalRead(pinToFlip));
+    states[pinToFlip] = !states[pinToFlip];
+    digitalWrite(pinToFlip, states[pinToFlip]);
     d(50 + random(500));
   }
 }
@@ -297,7 +324,6 @@ void anim9() { // Chase with increasing temp, then backwards
 }
 void anim10() { // Bao Bao..... chicka chicakaaahhhhh
   d4();
-  int _bpm = bpm;
   setTempo(130);
   setMessage(_B___); d1_2(); setAllOff(); d1_2();
   setMessage(_B___); d1_2(); setAllOff(); d1_2();
@@ -314,17 +340,16 @@ void anim10() { // Bao Bao..... chicka chicakaaahhhhh
 
 void anim11() { // FlickerCandy
   d4();
-  int _bpm = bpm;
 
   for (int i=0; i<7; i++) {
-    setMessage(BAO); d(20+random(100*i));
-    setAllOff(); d(random(50+300/i));
+    setMessage(BAO); d(20+random(100*i+1));
+    setAllOff(); d(random(50+300/(i+1)));
   }
   setMessage(BAO); d(2000);
 
   for (int i=0; i<7; i++) {
     setMessage(BAO); d(20+random(100));
-    setAllOff(); d(random(50+200/i));
+    setAllOff(); d(random(50+200/(i+1)));
     setMessage(CHICKA); d(20+random(100));
   }
   setMessage(CHICKA); d(1200);
@@ -340,7 +365,7 @@ void anim11() { // FlickerCandy
   for (int i=0; i<17; i++) {
     setMessage(WOW1); d(20+random(200));
     setAllOff(); d(random(100));
-    setMessage(WOW2); d(20+random(i*5));
+    setMessage(WOW2); d(20+random(1+i*5));
     setAllOff(); d(random(75));
   }
   setMessage(WOW2); d(3000);
@@ -657,60 +682,10 @@ void sign4toNSlow() {
   sign4isN = 1;
 }
 
-void setModeBaoNow() {
-  mode = BaoNow;
-  DEBUG_PRINTLN("Setting mode to BaoNow");
-  baoNowStart();
-}
-void setModeDay() {
-  mode = Day;
-  DEBUG_PRINTLN("Setting mode to Day");
-}
-void setModeNight() {
-  mode = Night;
-  DEBUG_PRINTLN("Setting mode to Night");
-}
-
-
 
 ///////////////////////////////
 // Time, Delay, Speed Utilities
 ///////////////////////////////
-
-void setTimeAndAlarms() {
-  rtc.begin();
-  // rtc.autoTime(); // Wasn't working: Usually off by 30 minutes and several days. Weird.
-  // e.g. 7:32:16 | Monday October 31, 2016:
-  // rtc.setTime(16, 32, 7, 2, 31, 10, 16);
-  // rtc.set24Hour();
-  // Arguments to calibrate (set) the Real Time Clocl are rtc.setTime(ms, sec, min, hour, day, month, 2-digit year)
-  // rtc.setTime(00, 35, 20, 7, 18, 8, 18);  // Uncomment if RTC needs to be reset
-  // rtc.set12Hour();
-  rtc.update();
-  printTime();
-  setTime(rtc.hour(),rtc.minute(),rtc.second(),rtc.month(),rtc.date(),rtc.year()); // init Alarm class
-
-  // Must set dtNBR_ALARMS = 8 in TimeAlarm header! This is in TimeAlarms.h in a libraries/ load path
-  Alarm.alarmRepeat(7,0,0,setModeDay);  // 7:00am every day
-  Alarm.alarmRepeat(11,45,0,setModeBaoNow);
-  Alarm.alarmRepeat(13,0,0,setModeDay);
-  Alarm.alarmRepeat(19,0,0,setModeNight);
-  Alarm.alarmRepeat(23,45,0,setModeBaoNow);
-  Alarm.alarmRepeat(1,0,0,setModeNight);
-  // The following is for debugging & testing Alarms
-  // Alarm.alarmRepeat(10,37,0,setModeBaoNow);
-
-  if (rtc.is12Hour() &&  rtc.hour() >= 7 && rtc.hour() < 12 || rtc.hour() >= 13 && rtc.hour() < 19) {
-    setModeDay();
-    DEBUG_PRINTLN("We think it's Day.");
-  } else if (rtc.hour() == 12 || rtc.hour() == 0) {
-    setModeBaoNow();
-    DEBUG_PRINTLN("We think it's BaoNow Time.");
-  } else {
-    setModeNight();
-    DEBUG_PRINTLN("We think it's Night.");
-  }
-}
 
 
 void startupDiagnostic() {
@@ -723,58 +698,6 @@ void startupDiagnostic() {
   setMessage(_BCWW); d1();
   setAllOff();
 }
-
-
-
-// RTC Print
-void printTime() {
-  #ifdef DEBUG
-    rtc.update();
-    Serial.print("RTC result: ");
-    Serial.print(String(rtc.hour()) + ":"); // Print hour
-    if (rtc.minute() < 10)
-      Serial.print('0'); // Print leading '0' for minute
-    Serial.print(String(rtc.minute()) + ":"); // Print minute
-    if (rtc.second() < 10)
-      Serial.print('0'); // Print leading '0' for second
-    Serial.print(String(rtc.second())); // Print second
-
-    if (rtc.is12Hour()) // If we're in 12-hour mode
-    {
-      // Use rtc.pm() to read the AM/PM state of the hour
-      if (rtc.pm()) Serial.print(" PM"); // Returns true if PM
-      else Serial.print(" AM");
-    }
-
-    Serial.print(" | ");
-
-    // Few options for printing the day, pick one:
-    Serial.print(rtc.dayStr()); // Print day string
-    //Serial.print(rtc.dayC()); // Print day character
-    //Serial.print(rtc.day()); // Print day integer (1-7, Sun-Sat)
-    Serial.print(" - ");
-    #ifdef PRINT_USA_DATE
-      Serial.print(String(rtc.month()) + "/" +   // Print month
-                     String(rtc.date()) + "/");  // Print date
-    #else
-      Serial.print(String(rtc.date()) + "/" +    // (or) print date
-                     String(rtc.month()) + "/"); // Print month
-    #endif
-      Serial.println(String(rtc.year()));        // Print year
-  #endif
-}
-
-
-// Shorthand for a delay; using Alarms apparently you need to use this. Overhead?
-void d(int ms) { Alarm.delay(ms); }
-void d1()   { Alarm.delay(beatPeriod); }
-void d1_2() { Alarm.delay(b1_2); }
-void d1_4() { Alarm.delay(b1_4); }
-void d3_4() { Alarm.delay(b3_4); }
-void d1_8() { Alarm.delay(b1_8); }
-void d2()   { Alarm.delay(b2); }
-void d4()   { Alarm.delay(b4); }
-void d8()   { Alarm.delay(b8); }
 
 
 void setTempo(unsigned int _bpm) {
