@@ -679,6 +679,7 @@ void sign4toNSlow() {
     int pos = servoWPos + (servoNPos-servoWPos)*t/3000;
     nwServo.write(pos); d(1);
   }
+  nwServo.write(servoNPos);
   sign4isN = 1;
 }
 
